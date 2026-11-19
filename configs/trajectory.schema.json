@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Trajectory v1 public artifacts",
+  "oneOf": [{"$ref": "#/$defs/task"}, {"$ref": "#/$defs/submission"}],
+  "$defs": {
+    "rational": {
+      "type": "string",
+      "pattern": "^(0|-?[1-9][0-9]{0,3}(/[2-9]|/[1-9][0-9]{1,3})?)(?![\\s\\S])",
+      "description": "Reduced form and contextual bounds are additional semantic requirements in SPEC.md."
+    },
+    "point": {
+      "type": "array", "minItems": 2, "maxItems": 2, "items": {"$ref": "#/$defs/rational"}
+    },
+    "endpoints": {
+      "type": "object", "additionalProperties": false, "required": ["a", "b"],
+      "properties": {"a": {"$ref": "#/$defs/point"}, "b": {"$ref": "#/$defs/point"}}
+    },
+    "task": {
+      "type": "object", "additionalProperties": false,
+      "required": ["format", "id", "family", "starts", "goals"],
+      "properties": {
+        "format": {"const": "two-disc-task-v1"},
+        "id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]{0,63}(?![\\s\\S])"},
+        "family": {"enum": ["A", "B", "C"]},
+        "starts": {"$ref": "#/$defs/endpoints"}, "goals": {"$ref": "#/$defs/endpoints"},
+        "obstacle": {"$ref": "#/$defs/point"}
+      },
+      "if": {"properties": {"family": {"const": "C"}}},
+      "then": {"required": ["obstacle"]}, "else": {"not": {"required": ["obstacle"]}}
+    },
+    "path": {
+      "type": "array", "minItems": 2, "maxItems": 32,
+      "items": {"type": "array", "minItems": 3, "maxItems": 3, "items": {"$ref": "#/$defs/rational"}}
+    },
+    "submission": {
+      "type": "object", "additionalProperties": false, "required": ["format", "a", "b"],
+      "properties": {
+        "format": {"const": "two-disc-path-v1"},
+        "a": {"$ref": "#/$defs/path"}, "b": {"$ref": "#/$defs/path"}
+      }
+    }
+  }
+}

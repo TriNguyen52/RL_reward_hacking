@@ -1,0 +1,53 @@
+# Generated panels, model runs, and review packets
+/results/
+/artifacts-private/
+
+# Local research and milestone implementation
+/analysis/
+/proofs/
+/tests/
+/configs/*
+!/configs/trajectory.schema.json
+/src/adapters/
+/src/m6/
+/src/pilot/
+/src/proxy/
+/src/tasks/generator.py
+
+# Python environments, bytecode, and test output
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+
+# Local Node and Lean files
+node_modules/
+.lake/
+*.olean
+*.ilean
+
+# Local credentials and environment overrides
+.env
+.env.*
+!.env.example
+!.env.sample
+.envrc
+.aws/
+.modal.toml
+*.pem
+*.key
+
+# Workspace and OS files
+/.agents/
+/.codex/
+/.idea/
+/.vscode/
+.DS_Store
+Thumbs.db
+Desktop.ini

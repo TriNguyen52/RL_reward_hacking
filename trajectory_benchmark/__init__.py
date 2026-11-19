@@ -1,0 +1,1 @@
+"""Two-disc trajectory benchmark."""
